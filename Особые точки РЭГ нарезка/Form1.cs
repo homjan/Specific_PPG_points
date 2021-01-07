@@ -75,18 +75,18 @@ namespace Особые_точки_РЭГ_нарезка
             int B4 = System.Convert.ToInt32(textBox8.Text);
 
             Initial_data init_data = new Initial_data("Исправляемый цикл.txt", reg, ekg);
-            long[,] row = init_data.get_row1();
+            long[,] row = init_data.Get_Row1();
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
-            usergraph.makeGraph_on_canal_only_one_graph();
+            usergraph.ClearAll();//Очищаем полотно
+            usergraph.MakeGraph_On_Canal_Only_One_Graph();
             
-            usergraph.makeGraph_osob_point_without_EKG_one_period(row, B2, B3, B4);
-            usergraph.resetGraph();
-            usergraph.install_pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
-            usergraph.resetGraph();//Обновляем
+            usergraph.MakeGraph_Special_Point_Without_EKG_One_Period(row, B2, B3, B4);
+            usergraph.ResetGraph();
+            usergraph.Install_Pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
+            usergraph.ResetGraph();//Обновляем
            
-            for (int q = 1; q < init_data.get_b(); q++)
+            for (int q = 1; q < init_data.Get_Number_Strings(); q++)
             {               
                 richTextBox2.AppendText(System.Convert.ToString(q) + "\t" + System.Convert.ToString(row[q, 1]) + "\n");
             }
@@ -102,14 +102,14 @@ namespace Особые_точки_РЭГ_нарезка
                
         private void button1_Click(object sender, EventArgs e)//Очистить график
         {
-            usergraph.clearAll();
+            usergraph.ClearAll();
 
             richTextBox2.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)//Сохранить график
         {
-            usergraph.saveGraph();
+            usergraph.SaveGraph();
         }
 
         private void button4_Click(object sender, EventArgs e)//Открыть файл
@@ -152,15 +152,15 @@ namespace Особые_точки_РЭГ_нарезка
             try
             {
                 Initial_data init_data = new Initial_data("test.txt", reg, ekg);
-                init_data.row1_shift_time_0();//Сдвигаем время к 0
-                init_data.row1_smothing();// Сглаживаем полученные данные
-                init_data.row1_write_in_file("test3.txt");
+                init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+                init_data.Smoothe_Row1();// Сглаживаем полученные данные
+                init_data.Write_In_File_Row1("test3.txt");
 
                 usergraph = new UseZedgraph(zedGraph1);
-                usergraph.clearAll();//Очищаем полотно
-                usergraph.makeGraph_4kanal(init_data.get_row1(), init_data.get_b());//Строим график
-                usergraph.install_pane("t, мc", "R, Ом", "Каналы");//Устанавливаем оси и загавие
-                usergraph.resetGraph();//Обновляем
+                usergraph.ClearAll();//Очищаем полотно
+                usergraph.MakeGraph_4_Canal(init_data.Get_Row1(), init_data.Get_Number_Strings());//Строим график
+                usergraph.Install_Pane("t, мc", "R, Ом", "Каналы");//Устанавливаем оси и загавие
+                usergraph.ResetGraph();//Обновляем
               
             }
             catch (Exception ex)
@@ -181,10 +181,10 @@ namespace Особые_точки_РЭГ_нарезка
                 Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
               
                 usergraph = new UseZedgraph(zedGraph1);
-                usergraph.clearAll();//Очищаем полотно
-                usergraph.makeGraph_4kanal(init_data.get_row1(), init_data.get_b());//Строим график
-                usergraph.install_pane("t, мc", "R, Ом", "Каналы");//Устанавливаем оси и загавие
-                usergraph.resetGraph();//Обновляем
+                usergraph.ClearAll();//Очищаем полотно
+                usergraph.MakeGraph_4_Canal(init_data.Get_Row1(), init_data.Get_Number_Strings());//Строим график
+                usergraph.Install_Pane("t, мc", "R, Ом", "Каналы");//Устанавливаем оси и загавие
+                usergraph.ResetGraph();//Обновляем
              }
             catch (Exception ex)
             {
@@ -201,26 +201,26 @@ namespace Особые_точки_РЭГ_нарезка
             int ekg = 1;
             
             Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
-            init_data.row1_shift_time_0();//Сдвигаем время к 0
-            init_data.row1_smothing();// Сглаживаем полученные данные
-            init_data.row2_calculate();
-            init_data.row3_average_kanal_reg();
-            init_data.row4_smoothing_ekg();
+            init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+            init_data.Smoothe_Row1();// Сглаживаем полученные данные
+            init_data.Calculate_Derivative_Row2();
+            init_data.Average_Canal_REG_Row3();
+            init_data.Smoothing_Ekg_Row4();
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
-            usergraph.makeGraph_on_chosen_canal();
+            usergraph.ClearAll();//Очищаем полотно
+            usergraph.MakeGraph_On_Chosen_Canal();
 
             //Разделяем 
             Initial_processing.Divided_by_periods_data divided_row = new Initial_processing.Divided_by_periods_data(init_data, this.comboBox2.Text);
-            divided_row.return_data_in_period();
+            divided_row.Calculate_Data_In_Period();
          
             Special_point osob_point = new Special_point(divided_row, init_data);
 
             long[,] osob = null;
             
-            osob_point.return_osob_point(this.comboBox2.Text);                                  
-            osob = osob_point.get_spec_point();
+            osob_point.Calculate_Special_Point(this.comboBox2.Text);                                  
+            osob = osob_point.Get_Special_Point();
 
             int arre = osob.Length;
             int ew = arre / 15;//счетчик найденных максимумов
@@ -264,9 +264,9 @@ namespace Особые_точки_РЭГ_нарезка
             }
 
             textBox3.Text = Convert.ToString(ew - 4);
-            usergraph.makeGraph_osob_point(osob_x, osob_y, ew);
-            usergraph.install_pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
-            usergraph.resetGraph();//Обновляем
+            usergraph.MakeGraph_Special_Point(osob_x, osob_y, ew);
+            usergraph.Install_Pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
+            usergraph.ResetGraph();//Обновляем
             StreamReader scetch = new StreamReader("счетчик.txt");
                 String ssssq = scetch.ReadLine();
                 textBox10.Text = ssssq;
@@ -299,23 +299,23 @@ namespace Особые_точки_РЭГ_нарезка
             int ekg = 1;
             
             Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
-            init_data.row1_shift_time_0();//Сдвигаем время к 0
-            init_data.row1_smothing();// Сглаживаем полученные данные
-            init_data.row2_calculate();
-            init_data.row3_average_kanal_reg();
-            init_data.row4_smoothing_ekg();
+            init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+            init_data.Smoothe_Row1();// Сглаживаем полученные данные
+            init_data.Calculate_Derivative_Row2();
+            init_data.Average_Canal_REG_Row3();
+            init_data.Smoothing_Ekg_Row4();
 
-            long[,] row_1 = init_data.get_row1();
+            long[,] row_1 = init_data.Get_Row1();
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
+            usergraph.ClearAll();//Очищаем полотно
         
             Initial_processing.Divided_by_periods_data divided_row = new Initial_processing.Divided_by_periods_data(init_data, this.comboBox2.Text);
             Special_point osob_point = new Special_point(divided_row, init_data);
 
             long[,] osob = null;
-            osob_point.return_osob_point(this.comboBox2.Text);
-            osob = osob_point.get_spec_point();
+            osob_point.Calculate_Special_Point(this.comboBox2.Text);
+            osob = osob_point.Get_Special_Point();
 
             int arre = osob.Length;
             int ew = arre / 15;//счетчик найденных максимумов
@@ -364,7 +364,7 @@ namespace Особые_точки_РЭГ_нарезка
             int B3 = 0;
             int B4 = 0;
 
-            for (int q = 0; q < init_data.get_b(); q++)// считаем производную
+            for (int q = 0; q < init_data.Get_Number_Strings(); q++)// считаем производную
             {
                 if (row_1[q, 0] >= osob_x[1, nomer_period] && row_1[q, 0] < osob_x[1, nomer_period + 1])
                 {               
@@ -397,15 +397,15 @@ namespace Особые_точки_РЭГ_нарезка
             // Заполним массив точек для кривой f1-3(x)
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
-            usergraph.makeGraph_on_chosen_canal_only_one_graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period+1]);
+            usergraph.ClearAll();//Очищаем полотно
+            usergraph.MakeGraph_On_Chosen_Canal_Only_One_Graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period+1]);
 
             if (povtor == true)
             {
-                usergraph.makeGraph_osob_point_without_EKG_one_period(osob_x, osob_y, B2, B3, B4, nomer_period);
-                usergraph.resetGraph();
-                usergraph.install_pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
-                usergraph.resetGraph();//Обновляем
+                usergraph.MakeGraph_Special_Point_Without_EKG_One_Period(osob_x, osob_y, B2, B3, B4, nomer_period);
+                usergraph.ResetGraph();
+                usergraph.Install_Pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
+                usergraph.ResetGraph();//Обновляем
 
             }
           
@@ -443,23 +443,23 @@ namespace Особые_точки_РЭГ_нарезка
             int ekg = 1;
 
             Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
-            init_data.row1_shift_time_0();//Сдвигаем время к 0
-            init_data.row1_smothing();// Сглаживаем полученные данные
-            init_data.row2_calculate();
-            init_data.row3_average_kanal_reg();
-            init_data.row4_smoothing_ekg();
+            init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+            init_data.Smoothe_Row1();// Сглаживаем полученные данные
+            init_data.Calculate_Derivative_Row2();
+            init_data.Average_Canal_REG_Row3();
+            init_data.Smoothing_Ekg_Row4();
 
-            long[,] row_1 = init_data.get_row1();
+            long[,] row_1 = init_data.Get_Row1();
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
+            usergraph.ClearAll();//Очищаем полотно
 
             Initial_processing.Divided_by_periods_data divided_row = new Initial_processing.Divided_by_periods_data(init_data, this.comboBox2.Text);
             Special_point osob_point = new Special_point(divided_row, init_data);
 
             long[,] osob = null;
-            osob_point.return_osob_point(this.comboBox2.Text);
-            osob = osob_point.get_spec_point();
+            osob_point.Calculate_Special_Point(this.comboBox2.Text);
+            osob = osob_point.Get_Special_Point();
 
             int arre = osob.Length;
             int ew = arre / 15;//счетчик найденных максимумов
@@ -507,7 +507,7 @@ namespace Особые_точки_РЭГ_нарезка
             int B3 = 0;
             int B4 = 0;
 
-            for (int q = 0; q < init_data.get_b(); q++)// считаем производную
+            for (int q = 0; q < init_data.Get_Number_Strings(); q++)// считаем производную
             {
                 if (row_1[q, 0] >= osob_x[1, nomer_period] && row_1[q, 0] < osob_x[1, nomer_period + 1])
                 {
@@ -539,15 +539,15 @@ namespace Особые_точки_РЭГ_нарезка
             // Заполним массив точек для кривой f1-3(x)
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
-            usergraph.makeGraph_on_chosen_canal_only_one_graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period + 1]);
+            usergraph.ClearAll();//Очищаем полотно
+            usergraph.MakeGraph_On_Chosen_Canal_Only_One_Graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period + 1]);
 
             if (povtor == true)
             {
-                usergraph.makeGraph_osob_point_without_EKG_one_period(osob_x, osob_y, B2, B3, B4, nomer_period);
-                usergraph.resetGraph();
-                usergraph.install_pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
-                usergraph.resetGraph();//Обновляем
+                usergraph.MakeGraph_Special_Point_Without_EKG_One_Period(osob_x, osob_y, B2, B3, B4, nomer_period);
+                usergraph.ResetGraph();
+                usergraph.Install_Pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
+                usergraph.ResetGraph();//Обновляем
 
             }
          
@@ -600,21 +600,21 @@ namespace Особые_точки_РЭГ_нарезка
             int ekg = 1;
 
             Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
-            init_data.row1_shift_time_0();//Сдвигаем время к 0
-            init_data.row1_smothing();// Сглаживаем полученные данные
-            init_data.row2_calculate();
-            init_data.row3_average_kanal_reg();
-            init_data.row4_smoothing_ekg();
+            init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+            init_data.Smoothe_Row1();// Сглаживаем полученные данные
+            init_data.Calculate_Derivative_Row2();
+            init_data.Average_Canal_REG_Row3();
+            init_data.Smoothing_Ekg_Row4();
 
-            long[,] row_1 = init_data.get_row1();
-            int b = init_data.get_b();
+            long[,] row_1 = init_data.Get_Row1();
+            int b = init_data.Get_Number_Strings();
 
             Initial_processing.Divided_by_periods_data divided_row = new Initial_processing.Divided_by_periods_data(init_data, this.comboBox2.Text);
             Special_point osob_point = new Special_point(divided_row, init_data);
 
             long[,] osob = null;
-            osob_point.return_osob_point(this.comboBox2.Text);
-            osob = osob_point.get_spec_point();
+            osob_point.Calculate_Special_Point(this.comboBox2.Text);
+            osob = osob_point.Get_Special_Point();
 
             int arre = osob.Length;
             int ew = arre / 15;//счетчик найденных максимумов
@@ -804,21 +804,21 @@ namespace Особые_точки_РЭГ_нарезка
             int ekg = 1;
 
             Initial_data init_data = new Initial_data("test3.txt", reg, ekg);
-            init_data.row1_shift_time_0();//Сдвигаем время к 0
-            init_data.row1_smothing();// Сглаживаем полученные данные
-            init_data.row2_calculate();
-            init_data.row3_average_kanal_reg();
-            init_data.row4_smoothing_ekg();
+            init_data.Shift_Row1_To_Time_0();//Сдвигаем время к 0
+            init_data.Smoothe_Row1();// Сглаживаем полученные данные
+            init_data.Calculate_Derivative_Row2();
+            init_data.Average_Canal_REG_Row3();
+            init_data.Smoothing_Ekg_Row4();
 
-            long[,] row_1 = init_data.get_row1();
-            int b = init_data.get_b();
+            long[,] row_1 = init_data.Get_Row1();
+            int b = init_data.Get_Number_Strings();
 
             Initial_processing.Divided_by_periods_data divided_row = new Initial_processing.Divided_by_periods_data(init_data, this.comboBox2.Text);
             Special_point osob_point = new Special_point(divided_row, init_data);
 
             long[,] osob = null;
-            osob_point.return_osob_point(this.comboBox2.Text);
-            osob = osob_point.get_spec_point();
+            osob_point.Calculate_Special_Point(this.comboBox2.Text);
+            osob = osob_point.Get_Special_Point();
 
             int arre = osob.Length;
             int ew = arre / 15;//счетчик найденных максимумов
@@ -914,15 +914,15 @@ namespace Особые_точки_РЭГ_нарезка
             textBox8.Text = System.Convert.ToString(B4);
 
             usergraph = new UseZedgraph(zedGraph1, init_data);
-            usergraph.clearAll();//Очищаем полотно
-            usergraph.makeGraph_on_chosen_canal_only_one_graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period + 1]);
+            usergraph.ClearAll();//Очищаем полотно
+            usergraph.MakeGraph_On_Chosen_Canal_Only_One_Graph(reg, osob_x[1, nomer_period], osob_x[1, nomer_period + 1]);
 
             if (povtor == true)
             {
-                usergraph.makeGraph_osob_point_without_EKG_one_period(osob_x, osob_y, B2, B3, B4, nomer_period);
-                usergraph.resetGraph();
-                usergraph.install_pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
-                usergraph.resetGraph();//Обновляем
+                usergraph.MakeGraph_Special_Point_Without_EKG_One_Period(osob_x, osob_y, B2, B3, B4, nomer_period);
+                usergraph.ResetGraph();
+                usergraph.Install_Pane("t, мc", "R, Ом", " ");//Устанавливаем оси и заглавие
+                usergraph.ResetGraph();//Обновляем
 
             }
           

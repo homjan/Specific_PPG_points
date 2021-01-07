@@ -17,7 +17,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Получить данные ФПГ нарезанные по периодам пульсового цикла
         /// </summary>
         /// <returns></returns>
-        public long[][] get_period()
+        public long[][] Get_Period()
         {
             return period;
         }
@@ -26,7 +26,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Получить полное число элементов
         /// </summary>
         /// <returns></returns>
-        public int get_period_number_element()
+        public int Get_Period_Number_Element()
         {
             return period.Length;
         }
@@ -35,7 +35,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Установить значения для данных ФПГ
         /// </summary>
         /// <param name="value"></param>
-        public void set_period(long[][] value)
+        public void Set_Period(long[][] value)
         {
             period = value;
         }
@@ -46,7 +46,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// <param name="x"> номер столбца - периода</param>
         /// <param name="y"> номер строки - элемента периода</param>
         /// <returns></returns>
-        public long get_element(int x, int y)
+        public long Get_One_Element(int x, int y)
         {
             return period[x][y];
         }
@@ -56,7 +56,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// </summary>
         /// <param name="x">номер столбца - периода</param>
         /// <returns></returns>
-        public long[] get_period_one_array(int x)
+        public long[] Get_One_Period_Array(int x)
         {
             return period[x];
         }
@@ -76,12 +76,12 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// <summary>
         /// Заполнить массив данными. Метод обязательный к выполнению
         /// </summary>
-        public void return_data_in_period()
+        public void Calculate_Data_In_Period()
         {
-            int b = init_data.get_b();
+            int b = init_data.Get_Number_Strings();
 
-            long[,] row1 = init_data.get_row1();
-            long[] row3 = init_data.get_row3();
+            long[,] row1 = init_data.Get_Row1();
+            long[] row3 = init_data.Get_Row3();
 
             int reg = init_data.REG;
 
@@ -124,15 +124,10 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
                 est = est + 200;
             }
 
-
-
             long[] osob_x = new long[ew + 1];// список особых точек для вывода на график
             long[] osob_y = new long[ew + 1];
             long[] osob_coor = new long[ew + 1];
-
-
-
-
+            
             long[] period_all = new long[ew];
             period = new long[ew][];
 
@@ -205,9 +200,8 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Перевести массив с нарезанными периодами в одномерный массив.
         /// </summary>
         /// <returns></returns>
-        public long[] period_in_data()
+        public long[] Calculate_Period_In_Data()
         {
-
             int length_massiv = 0;
             for (int i = 0; i < period.Length; i++)
             {
@@ -219,14 +213,11 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
 
             for (int i = 0; i < period.Length; i++)
             {
-
                 for (int j = 0; j < period[i].Length; j++)
                 {
-
                     period_all[k] = period[i][j];
                     k++;
                 }
-
             }
 
             return period_all;
@@ -236,9 +227,8 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// <summary>
         /// Удалить периоды нулевой длительности из всего массива
         /// </summary>
-        public void delete_zero_in_period()
+        public void Delete_Zero_In_Period()
         {
-
             for (int i = 1; i < period.Length; i++)
             {
 
@@ -269,7 +259,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
                 period_new[i] = period[i];
             }
 
-            set_period(period_new);
+            Set_Period(period_new);
 
 
 
@@ -278,7 +268,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// <summary>
         /// Удалить нули в конце каждого периода - пульсового цикла
         /// </summary>
-        public void delete_zero_at_end()
+        public void Delete_Zero_At_End()
         {
             long[][] period_new = new long[period.Length][];
 
@@ -300,14 +290,14 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
                     period_new[i][l] = period[i][l];
                 }
             }
-            set_period(period_new);
+            Set_Period(period_new);
         }
 
         /// <summary>
         /// Вернуть полное число элементов периода
         /// </summary>
         /// <returns></returns>
-        public long period_in_data_length()
+        public long Return_Period_In_Data_Length()
         {
             int length_massiv = 0;
             for (int i = 0; i < period.Length; i++)
@@ -335,7 +325,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Дополняем все массивы периода нулями до одинаковой длины - 1000 
         /// </summary>
         /// <returns></returns>
-        public long[,] return_periods_1000()
+        public long[,] Return_Periods_1000()
         {
 
             long[,] period1000 = new long[period.Length, 1000];
@@ -357,7 +347,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        public long return_length_x_zero(int i, int j)
+        public long Return_Length_to_Zero(int i, int j)
         {
             long a = System.Convert.ToInt64(j);
 
@@ -373,7 +363,7 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
         /// Вернуть полное число элементов периода переданного из вне
         /// </summary>
         /// <returns></returns>
-        public long period_in_data_length(long[][] period)
+        public long Return_Period_In_Data_Length(long[][] period)
         {
 
             int length_massiv = 0;
@@ -387,18 +377,14 @@ namespace Особые_точки_РЭГ_нарезка.Initial_processing
 
             for (int i = 0; i < period.Length; i++)
             {
-
                 for (int j = 0; j < period[i].Length; j++)
                 {
-
                     period_all[k] = period[i][j];
                     k++;
                 }
-
             }
 
             return k;
-
         }
 
 

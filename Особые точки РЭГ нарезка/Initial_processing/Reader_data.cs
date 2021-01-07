@@ -20,12 +20,12 @@ namespace Особые_точки_РЭГ_нарезка
         {
             this.name = name_File;
         }
-
+            
         /// <summary>
         /// Считать файл и записать данные в массив (только цифры)
         /// </summary>
         /// <returns></returns>
-        public long[,] return_read_massiv() 
+        public long[,] Return_Read_Array() 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;
@@ -88,7 +88,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить число строк в считанном файле
         /// </summary>
         /// <returns></returns>
-        public int return_read_stroki() 
+        public int Return_Read_String() 
         {
             //  StringBuilder buffer = new StringBuilder();
             int a = 0;
@@ -143,7 +143,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// </summary>
         /// <param name="ckor">Число периодов - наборов особых точек</param>
         /// <returns></returns>
-        public long[,] return_read_massiv_osob_point(int ckor) 
+        public long[,] Return_Read_Array_Special_Point(int ckor) 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;
@@ -225,7 +225,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Считать файл с данными от нейронной сети
         /// </summary>
         /// <returns></returns>
-        public long[][] return_read_massiv_divided_data() 
+        public long[][] Return_Read_Array_Divided_Data() 
         {
             StringBuilder buffer = new StringBuilder();
             int a = 0;

@@ -44,14 +44,14 @@ namespace Особые_точки_РЭГ_нарезка
 
             re_data = new Reader_data(name_file);
 
-            row1 = re_data.return_read_massiv();
-            b = re_data.return_read_stroki();
+            row1 = re_data.Return_Read_Array();
+            b = re_data.Return_Read_String();
 
             row2 = new long[b + 200, potok2];
             row3 = new long[b + 200];
             row4 = new long[b + 200];
 
-            row3_average_kanal_reg();
+            Average_Canal_REG_Row3();
 
         }
 
@@ -70,7 +70,7 @@ namespace Особые_точки_РЭГ_нарезка
 
             re_data = new Reader_data(name_file);
 
-            row_divided = re_data.return_read_massiv_divided_data();
+            row_divided = re_data.Return_Read_Array_Divided_Data();
 
         }
 
@@ -78,7 +78,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// сдвинуть к нулю первый столбец (c временем)
         /// </summary>
-        public void row1_shift_time_0() 
+        public void Shift_Row1_To_Time_0() 
         {
             for (int j = 3; j < b; j++)
             {
@@ -93,7 +93,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Сгладить по семи точкам все данные
         /// </summary>
-        public void row1_smothing() 
+        public void Smoothe_Row1() 
         {
             long[,] rw11 = row1;
 
@@ -110,7 +110,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         ///  Рассчитать и усилить производную
         /// </summary>
-        public void row2_calculate()
+        public void Calculate_Derivative_Row2()
         {
             for (int d = 1; d <= potok2; d++)
             {
@@ -124,7 +124,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Усреднить производную
         /// </summary>
-        public void row3_average_kanal_reg()
+        public void Average_Canal_REG_Row3()
         {
             for (int q = 4; q < b - 4; q++)
             {
@@ -135,7 +135,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Сгладить ЭКГ, чтобы убрать наводку 50 Гц
         /// </summary>
-        public void row4_smoothing_ekg()
+        public void Smoothing_Ekg_Row4()
         {
             for (int q = 3; q < b - 8; q++)
             {
@@ -147,7 +147,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Записать данные (необработанные) в файл
         /// </summary>
         /// <param name="name_file">Имя файла</param>
-        public void row1_write_in_file(String name_file)
+        public void Write_In_File_Row1(String name_file)
         {
             StreamWriter rw2 = new StreamWriter(name_file);
             for (int j = 3; j < b; j++)
@@ -172,7 +172,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить исходные данные
         /// </summary>
         /// <returns></returns>
-        public long[,] get_row1()
+        public long[,] Get_Row1()
         {
             return row1;
         }
@@ -181,7 +181,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить производную
         /// </summary>
         /// <returns></returns>
-        public long[,] get_row2()
+        public long[,] Get_Row2()
         {
             return row2;
         }
@@ -190,7 +190,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить усредненную производную канала РЭГ
         /// </summary>
         /// <returns></returns>
-        public long[] get_row3()
+        public long[] Get_Row3()
         {
             return row3;
         }
@@ -199,7 +199,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить сглаженные данные канала ЭКГ
         /// </summary>
         /// <returns></returns>
-        public long[] get_row4()
+        public long[] Get_Row4()
         {
             return row4;
         }
@@ -208,7 +208,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить число строк в последовательности
         /// </summary>
         /// <returns></returns>
-        public int get_b()
+        public int Get_Number_Strings()
         {
             return b;
         }
@@ -217,7 +217,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить разделенную на периоды последовательность
         /// </summary>
         /// <returns></returns>
-        public long[][] get_row_divided()
+        public long[][] Get_Row_Divided()
         {
             return row_divided;
         }
@@ -227,7 +227,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="b"> номер элемента</param>
         /// <param name="kanal">номер канала</param>
         /// <returns></returns>
-        public long get_row1_x_y(int b, int kanal)
+        public long Get_Row1_X_Y(int b, int kanal)
         {
             return row1[b, kanal];
         }
@@ -236,7 +236,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Задать исходные данные
         /// </summary>
         /// <param name="row_1_new"></param>
-        public void set_row1(long[,] row_1_new)
+        public void Set_Row1(long[,] row_1_new)
         {
             row1 = row_1_new;
         }
@@ -244,7 +244,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Задать число строк
         /// </summary>
         /// <param name="bx"></param>
-        public void set_b(int bx)
+        public void Set_Number_Strings(int bx)
         {
             b = bx;
         }

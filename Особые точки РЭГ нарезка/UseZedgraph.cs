@@ -39,7 +39,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Очистить график
         /// </summary>
-        public void clearGraph()
+        public void ClearGraph()
         {
             pane.CurveList.Clear();
         }
@@ -49,7 +49,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// </summary>
         /// <param name="xxx">массив данных (обычно row1)</param>
         /// <param name="b"> число строк</param>
-        public void makeGraph_4kanal(long[,] xxx, int b)
+        public void MakeGraph_4_Canal(long[,] xxx, int b)
         {
             PointPairList f1_list = new PointPairList();
             PointPairList f2_list = new PointPairList();
@@ -77,7 +77,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="Xaxis">ось х</param>
         /// <param name="Yaxis">ось y</param>
         /// <param name="Title_text">Заглавие</param>
-        public void install_pane(String Xaxis, String Yaxis, String Title_text)
+        public void Install_Pane(String Xaxis, String Yaxis, String Title_text)
         {
             pane.Title.Text = Title_text;
             pane.XAxis.Title.Text = Xaxis;
@@ -88,13 +88,13 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Построить график от выбранных каналов ЭКГ и РЭГ + производная РЭГ
         /// </summary>
-        public void makeGraph_on_chosen_canal()
+        public void MakeGraph_On_Chosen_Canal()
         {
 
-            long[,] row_1 = initdata.get_row1();
-            long[] row_3 = initdata.get_row3();
-            long[] row_4 = initdata.get_row4();
-            int b = initdata.get_b();
+            long[,] row_1 = initdata.Get_Row1();
+            long[] row_3 = initdata.Get_Row3();
+            long[] row_4 = initdata.Get_Row4();
+            int b = initdata.Get_Number_Strings();
 
 
             for (int y = 100; y < b - 10; y++)
@@ -167,10 +167,10 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Построить график только с первого канала
         /// </summary>
-        public void makeGraph_on_canal_only_one_graph()
+        public void MakeGraph_On_Canal_Only_One_Graph()
         {
-            long[,] row_1 = initdata.get_row1();
-            int b = initdata.get_b();
+            long[,] row_1 = initdata.Get_Row1();
+            int b = initdata.Get_Number_Strings();
 
             PointPairList f2_list = new PointPairList();
             PointPairList f4_list = new PointPairList();
@@ -195,10 +195,10 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="number_kanal">номер канала</param>
         /// <param name="left_border">Левая граница</param>
         /// <param name="right_border">Правая граница</param>
-        public void makeGraph_on_chosen_canal_only_one_graph(int number_kanal, long left_border, long right_border)
+        public void MakeGraph_On_Chosen_Canal_Only_One_Graph(int number_kanal, long left_border, long right_border)
         {
-            long[,] row_1 = initdata.get_row1();
-            int b = initdata.get_b();
+            long[,] row_1 = initdata.Get_Row1();
+            int b = initdata.Get_Number_Strings();
          
             PointPairList f2_list = new PointPairList();
             PointPairList f4_list = new PointPairList();
@@ -216,7 +216,6 @@ namespace Особые_точки_РЭГ_нарезка
                 }                   
             }
 
-
             pane.XAxis.Title.Text = "t, мc";
             pane.YAxis.Title.Text = "R, Ом";
             pane.Title.Text = "Данные";
@@ -231,7 +230,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="osob_x"></param>
         /// <param name="osob_y"></param>
         /// <param name="ew"></param>
-        public void makeGraph_osob_point(long[,] osob_x, long[,] osob_y, int ew)
+        public void MakeGraph_Special_Point(long[,] osob_x, long[,] osob_y, int ew)
         {
 
             // Выводим точки на экран
@@ -242,11 +241,7 @@ namespace Особые_точки_РЭГ_нарезка
             PointPairList list9 = new PointPairList();
 
             for (int w = 2; w < ew - 2; w++)
-            {
-                /*   for (int i = 0; i < 14; i++)
-                   {
-                       list4.Add(osob_x[i, w] / 1000, osob_y[i, w]);
-                   }*/
+            {               
                 list5.Add(osob_x[1, w] / 1000, osob_y[1, w]);
                 list6.Add(osob_x[2, w] / 1000, osob_y[2, w]);
                 list7.Add(osob_x[3, w] / 1000, osob_y[3, w]);
@@ -261,7 +256,6 @@ namespace Особые_точки_РЭГ_нарезка
             LineItem myCurve7 = pane.AddCurve("B3", list7, Color.DarkRed, SymbolType.Diamond);
             LineItem myCurve8 = pane.AddCurve("B4", list8, Color.Green, SymbolType.Diamond);
             LineItem myCurve9 = pane.AddCurve("ЭКГ", list9, Color.Brown, SymbolType.Diamond);
-
 
             // !!!
             // У кривой линия будет невидимой
@@ -306,7 +300,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="B2"></param>
         /// <param name="B3"></param>
         /// <param name="B4"></param>
-        public void makeGraph_osob_point_without_EKG_one_period(long[,] osob_x, int B2, int B3, int B4)
+        public void MakeGraph_Special_Point_Without_EKG_One_Period(long[,] osob_x, int B2, int B3, int B4)
         {
 
             // Выводим точки на экран
@@ -368,7 +362,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <param name="B3"></param>
         /// <param name="B4"></param>
         /// <param name="number"> номер периода</param>
-        public void makeGraph_osob_point_without_EKG_one_period(long[,] osob_x, long[,] osob_y, int B2, int B3, int B4, int number)
+        public void MakeGraph_Special_Point_Without_EKG_One_Period(long[,] osob_x, long[,] osob_y, int B2, int B3, int B4, int number)
         {
 
             // Выводим точки на экран
@@ -425,7 +419,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Обновить график
         /// </summary>
-        public void resetGraph()
+        public void ResetGraph()
         {
             zedgraph.AxisChange();
             zedgraph.Invalidate();
@@ -434,7 +428,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Сохранить график
         /// </summary>
-        public void saveGraph()
+        public void SaveGraph()
         {
             zedgraph.SaveAsBitmap();
         }
@@ -442,7 +436,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Очистить все
         /// </summary>
-        public void clearAll()
+        public void ClearAll()
         {
             pane.CurveList.Clear();
 
@@ -462,7 +456,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// </summary>
         /// <param name="value_min"></param>
         /// <param name="value_max"></param>
-        public void shift_axis(double value_min, double value_max)
+        public void Shift_Axis(double value_min, double value_max)
         {
             // Устанавливаем интересующий нас интервал по оси Y
             pane.XAxis.Scale.Min = value_min;

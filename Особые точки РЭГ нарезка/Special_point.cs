@@ -13,7 +13,7 @@ namespace Особые_точки_РЭГ_нарезка
         private int mass = 10;
         private long[,] spec_point;
 
-        private void set_spec_point(long[,] value)
+        private void Set_Spec_Point(long[,] value)
         {
             spec_point = value;
         }
@@ -24,7 +24,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить массив специальных точек
         /// </summary>
         /// <returns></returns>
-        public long[,] get_spec_point()
+        public long[,] Get_Special_Point()
         {
             return spec_point;
         }
@@ -44,14 +44,14 @@ namespace Особые_точки_РЭГ_нарезка
         /// Получить особые точки РЭГ и ЭКГ, используя стандартный алгоритм
         /// </summary>
         /// <param name="combobox3"></param>
-        public void return_point_EKG(String combobox3)
+        public void Return_Point_EKG(String combobox3)
         {
 
-            int b = initial_data.get_b();
-            long[,] row1 = initial_data.get_row1();
-            long[,] row2 = initial_data.get_row2();
-            long[] row3 = initial_data.get_row3();
-            long[] row4 = initial_data.get_row4();
+            int b = initial_data.Get_Number_Strings();
+            long[,] row1 = initial_data.Get_Row1();
+            long[,] row2 = initial_data.Get_Row2();
+            long[] row3 = initial_data.Get_Row3();
+            long[] row4 = initial_data.Get_Row4();
 
             int reg = initial_data.REG;
 
@@ -165,7 +165,7 @@ namespace Особые_точки_РЭГ_нарезка
         /// <summary>
         /// Удалить нули из периодов
         /// </summary>
-        public void delete_zero_in_data()
+        public void Delete_Zero_In_Data()
         {
             int arre = spec_point.Length;
             int ew = arre / 15;
@@ -207,20 +207,23 @@ namespace Особые_точки_РЭГ_нарезка
                 }
             }
 
-            set_spec_point(period_new);
+            Set_Spec_Point(period_new);
 
         }
 
-
-        public void return_osob_point(String combobox3)
+        /// <summary>
+        /// Рассчитать особые точки
+        /// </summary>
+        /// <param name="combobox3"></param>
+        public void Calculate_Special_Point(String combobox3)
         {
-            int b = initial_data.get_b();
+            int b = initial_data.Get_Number_Strings();
 
-            long[,] row1 = initial_data.get_row1();
+            long[,] row1 = initial_data.Get_Row1();
 
-            long[,] row2 = initial_data.get_row2();
-            long[] row3 = initial_data.get_row3();
-            long[] row4 = initial_data.get_row4();
+            long[,] row2 = initial_data.Get_Row2();
+            long[] row3 = initial_data.Get_Row3();
+            long[] row4 = initial_data.Get_Row4();
 
             int reg = initial_data.REG;
 
@@ -239,9 +242,8 @@ namespace Особые_точки_РЭГ_нарезка
                 max1_x[u] = 1;
                 max1_y[u] = 1;
             }
-            // while (ew<2)
-            while (b0 < b)/////////////поиск опорных точек
-                          // for (int est = 0; est < 120; est = est + 40)
+            
+            while (b0 < b)/////////////
             {
                 for (int t = 0; t < 200; t++)
                 {
@@ -256,7 +258,7 @@ namespace Особые_точки_РЭГ_нарезка
 
                 }
 
-                if (max1_y[maxim] > System.Convert.ToInt64(combobox3) * 10)////////////////////!!!!!!
+                if (max1_y[maxim] > System.Convert.ToInt64(combobox3) * 10)
                 {
                     ew++;// счетчик пиков производной
                     maxim++;
@@ -542,7 +544,7 @@ namespace Особые_точки_РЭГ_нарезка
       /// <param name="sche">массив с обыми точками</param>
       /// <param name="ew">Число особых точек</param>
       /// <returns></returns>
-        public long[,] shift_osob_point(long[,] sche, long ew)
+        public long[,] Shift_Special_Point(long[,] sche, long ew)
         {
             long[,] schet = sche;
             long test = 0;
@@ -554,11 +556,8 @@ namespace Особые_точки_РЭГ_нарезка
                     test = schet[8, w - 1] - Shift_BX(schet[3, w - 1], schet[3, w], schet[9, w - 1], schet[2, w - 1], schet[2, w]);// максимум В4
                     test2 = schet[8, w - 1];
 
-
                     schet[4, w - 1] = schet[4, w - 1] - Shift_BX(schet[3, w - 1], schet[3, w], schet[5, w - 1], schet[2, w - 1], schet[2, w]);// максимум В2
-
                     schet[6, w - 1] = schet[6, w - 1] - Shift_BX(schet[3, w - 1], schet[3, w], schet[7, w - 1], schet[2, w - 1], schet[2, w]); // минимум В3
-
                     schet[8, w - 1] = schet[8, w - 1] - Shift_BX(schet[3, w - 1], schet[3, w], schet[9, w - 1], schet[2, w - 1], schet[2, w]);// максимум В4
 
 
